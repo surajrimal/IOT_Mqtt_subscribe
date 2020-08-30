@@ -1,9 +1,7 @@
 from beacontools import parse_packet
 import paho.mqtt.client as mqtt
 import json
-import mysql.connector
-from mysql.connector import MySQLConnection, Error
-from mysql.connector import errorcode
+from mysql.connector import MySQLConnection, Error, errorcode
 from datetime import datetime
 import os, time
 from pytz import timezone
@@ -18,9 +16,6 @@ logFile = r'errorfile.txt'
 with open(logFile, 'w') as f:
     f.write('File created\n')
 
-
-
-
 try:
     dbconfig = read_db_config()
     conn = MySQLConnection(**dbconfig)
@@ -32,11 +27,6 @@ except mysql.connector.Error as error:
     with open(logFile, 'a') as f:
         loc_dt = datetime.now(eastern)
         print("Error = {} \n Time = {} \n".format(error, loc_dt.strftime(fmt)), file = f)
-        
-
-    
-
-
 
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -263,6 +253,3 @@ client.connect(broker_address, 1883, 60)
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
 client.loop_forever()
-
-
- 
